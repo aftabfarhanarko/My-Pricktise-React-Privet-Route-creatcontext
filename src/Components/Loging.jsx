@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
-import '../index.css'
+import React, { use, useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router";
+import "../index.css";
+import { AuthContext } from "../Context/AuthContext";
 
 const Loging = () => {
-    const [show, setShow] = useState(false);
-    const handelSingIn =(e) => {
+  const [show, setShow] = useState(false);
+  const { logingUser } = use(AuthContext);
+  const locationa = useLocation();
+  const neavieagt = useNavigate();
+  console.log(locationa)
 
-    }
-    return (
-       <div className="hero bg-base-200 min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-blue-500 ">
+  const handelSingIn = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+
+
+    logingUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        neavieagt(locationa.state)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  return (
+    <div className="hero bg-base-200 min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-blue-500 ">
       <div className="    md:flex gap-100 max-w-[1400px] px-5 items-center">
         <div className="text-center lg:text-left max-w-[700px] text-white">
           <h1 className="text-5xl font-bold">Sing In now!</h1>
@@ -19,7 +38,7 @@ const Loging = () => {
             a id nisi.
           </p>
         </div>
-        
+
         <div className="mx-auto rounded-2xl w-full max-w-sm flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-500">
           <div className="backdrop-blur-2xl  w-full max-w-sm border border-white/30 rounded-2xl shadow-2xl p-8">
             <h2 className="text-xl font-semibold text-center text-white mb-6">
@@ -57,11 +76,11 @@ const Loging = () => {
                 </div>
               </div>
 
-              <div onClick={""} className="flex justify-left text-[12px] -mt-2">
+              {/* <div onClick={""} className="flex justify-left text-[12px] -mt-2">
                 <a href="#" className="text-white/70 hover:text-white">
                   Forgot password?
                 </a>
-              </div>
+              </div> */}
 
               <button type="submit" className="my-btn">
                 Login
@@ -100,7 +119,7 @@ const Loging = () => {
         {/* )} */}
       </div>
     </div>
-    );
+  );
 };
 
 export default Loging;

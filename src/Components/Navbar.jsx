@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { use } from 'react';
 import logo from "../assets/react.svg";
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import '../index.css'
+import { AuthContext } from '../Context/AuthContext';
+
 
 
 const Navbar = () => {
+  const {signOuts,users} = use(AuthContext);
+  const outUser = () => {
+    signOuts();
+  }
     return (
         <div className="bg-white/80">
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between max-w-[1300px] mx-auto  p-3 text-black">
@@ -24,17 +30,18 @@ const Navbar = () => {
           <NavLink className="mr-4" to="/register">
             Register
           </NavLink>
-          {/* <NavLink className="mr-4" to="/user">
-            User
-          </NavLink> */}
-          {/* {myLogingUser && (
+          <NavLink className="mr-4" to="/point">
+         Point
+
+          </NavLink>
+          {users && (
             <NavLink className="mr-4" to="/dasbord">
               Dasbord
             </NavLink>
-          )} */}
+          )}
         </div>
         <div>
-          {/* {? (
+         { users ? (
             <button onClick={outUser} className="btn btn-secondary">
               Sign Out
             </button>
@@ -43,10 +50,8 @@ const Navbar = () => {
               {" "}
               <button className="btn btn-secondary">Sign In</button>
             </Link>
-          )} */}
-          <button onClick={""} className="btn btn-secondary">
-              Sign Out
-            </button>
+          )}
+          
         </div> 
       </div>
     </div>

@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
 
 const Register = () => {
   const [show, setShow] = useState(false);
+    const {usercreat} = use(AuthContext);
+  
 
-  const handelSingIn = (e) => {};
+  const handelRegister = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email,password);
+    usercreat(email, password)
+    .then(result => {
+        console.log(result.user);
+    }).catch(err => {
+        console.log(err.message);
+    })
+    
+  };
   return (
     <div className="hero bg-base-200 min-h-screen bg-gradient-to-br from-purple-500 via-blue-600 to-purple-500 ">
       <div className="    md:flex gap-100 max-w-[1400px] px-5 items-center">
@@ -23,7 +38,7 @@ const Register = () => {
               Register
             </h2>
 
-            <form onSubmit={handelSingIn} className="space-y-4">
+            <form onSubmit={handelRegister} className="space-y-4">
               <div>
                 <label className="block text-white text-[14px] mb-1">
                   Email
@@ -54,7 +69,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <div onClick={""} className="flex justify-left text-[12px] -mt-2">
+              <div className="flex justify-left text-[12px] -mt-2">
                 <Link className="text-white/70 hover:text-white">
                   Forgot password?
                 </Link>
@@ -74,7 +89,7 @@ const Register = () => {
             <p className="text-center text-white/80 mt-6 text-sm">
               Allredy You Have Account Please ?{" "}
               <Link
-                to="/loging"
+                to="/signin"
                 className="text-green-500 font-semibold underline"
               >
                 Loging
