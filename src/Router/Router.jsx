@@ -9,9 +9,10 @@ export const router = createBrowserRouter([
     {
         path:"/",
         Component: Root,
-    },
-    {
+        children:[
+              {
         index:true,
+        path:"/",
         Component: HomePage,
     },
     {
@@ -26,9 +27,12 @@ export const router = createBrowserRouter([
         path:"/dasbord",
         Component: DasBord,
     },
-    {
-        path:"/signin",
-        Component: Loging,
+    // {
+    //     path:"/signin",
+    //     Component: Loging,
+    // },
+        ]
     },
+  
 
 ])
